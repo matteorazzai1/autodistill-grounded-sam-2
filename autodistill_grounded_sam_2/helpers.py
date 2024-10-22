@@ -2,7 +2,6 @@ import os
 import subprocess
 import sys
 import urllib.request
-from groundingdino.util.inference import Model
 
 import torch
 import numpy as np
@@ -27,6 +26,7 @@ def load_grounding_dino():
 
     try:
         print("trying to load grounding dino directly")
+        from groundingdino.util.inference import Model
         grounding_dino_model = Model(
             model_config_path=GROUNDING_DINO_CONFIG_PATH,
             model_checkpoint_path=GROUNDING_DINO_CHECKPOINT_PATH,
@@ -45,7 +45,7 @@ def load_grounding_dino():
         if not os.path.exists(GROUNDING_DINO_CONFIG_PATH):
             url = "https://raw.githubusercontent.com/roboflow/GroundingDINO/main/groundingdino/config/GroundingDINO_SwinT_OGC.py"
             urllib.request.urlretrieve(url, GROUNDING_DINO_CONFIG_PATH)
-
+        from groundingdino.util.inference import Model
         grounding_dino_model = Model(
             model_config_path=GROUNDING_DINO_CONFIG_PATH,
             model_checkpoint_path=GROUNDING_DINO_CHECKPOINT_PATH,
