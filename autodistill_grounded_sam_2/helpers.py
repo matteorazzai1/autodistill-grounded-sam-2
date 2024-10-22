@@ -70,7 +70,9 @@ def load_SAM():
 
     os.chdir(SAM_CACHE_DIR)
 
-    if not os.path.isdir("~/.cache/autodistill/segment_anything_2/segment-anything-2"):
+    CHECK_PATH=os.path.join(SAM_CACHE_DIR, "segment-anything-2")
+
+    if not os.path.isdir(CHECK_PATH):
         subprocess.run(
             [
                 "git",
