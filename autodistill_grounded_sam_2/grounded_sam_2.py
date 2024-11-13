@@ -66,17 +66,17 @@ class GroundedSAM2(DetectionBaseModel):
                 detections_list, overwrite_class_ids=range(len(detections_list))
             )
 
-        with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
-            self.sam_2_predictor.set_image(image)
-            result_masks = []
-            for box in detections.xyxy:
-                masks, scores, _ = self.sam_2_predictor.predict(
-                    box=box, multimask_output=False
-                )
-                index = np.argmax(scores)
-                masks = masks.astype(bool)
-                result_masks.append(masks[index])
+        # with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
+        #     self.sam_2_predictor.set_image(image)
+        #     result_masks = []
+        #     for box in detections.xyxy:
+        #         masks, scores, _ = self.sam_2_predictor.predict(
+        #             box=box, multimask_output=False
+        #         )
+        #         index = np.argmax(scores)
+        #         masks = masks.astype(bool)
+        #         result_masks.append(masks[index])
 
-        detections.mask = np.array(result_masks)
+        # detections.mask = np.array(result_masks)
 
         return detections
